@@ -5,13 +5,11 @@ def converter_binario_antes(n):
         while n >= 1:
         
             if int(n % 2) == 0:
-                binario += "0"
+                binario = "0"   + binario
             else:
-                binario += "1"
+                binario = "1" + binario
         
             n /= 2
-        
-        binario = binario[::-1]
         
         return int(binario)
     
