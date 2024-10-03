@@ -5,7 +5,7 @@
 
 bool verificar_se_e_repetido(int vet[], int *posicao)
 {
-    for (int i = *posicao; i >= 0; i--)
+    for (int i = *posicao - 1; i >= 0; i--)
     {
         if (vet[*posicao] == vet[i])
         {
