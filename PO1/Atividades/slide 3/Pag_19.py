@@ -10,17 +10,19 @@ while  True:
             break
         
         elif n == 0:
-            lista.insert(len(lista) // 2, 0)
+            lista.insert((len(lista) // 2) + 1, 0)
             
         elif n % 2 == 0:
             lista.insert(0, n)
             
         else:
             lista.append(n)
+            
+        print(f"{lista}\n")
         
         
     except:
         continue
     
     
-print(f"\n{lista}")
+# print(f"\n{lista}")
