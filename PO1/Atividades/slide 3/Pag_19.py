@@ -10,7 +10,11 @@ while  True:
             break
         
         elif n == 0:
-            lista.insert((len(lista) // 2) + 1, 0)
+            if len(lista) == 1 and lista[0] % 2 == 0:
+                lista.insert(1, 0)
+            
+            else:
+                lista.insert((len(lista) // 2), 0)
             
         elif n % 2 == 0:
             lista.insert(0, n)

@@ -8,7 +8,9 @@ bool verificar_permutacao(int A[], int B[])
 {
     for (int i = 0; i < TAM; i++)
     {
-        if (A[i] == B[TAM -1 - i])
+        // printf("%d == %d\n", A[i], B[TAM -1 - i]);
+
+        if (A[i] != B[TAM -1 - i])
         {
             return false;
         }
@@ -30,7 +32,7 @@ int main()
     printf("\nB\n");
     for (int i = 0; i < TAM; i++)
     {
-        scanf("%d", &A[i]);
+        scanf("%d", &B[i]);
     }
 
     if (verificar_permutacao(A,B))
