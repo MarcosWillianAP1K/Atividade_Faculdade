@@ -6,6 +6,8 @@ def ordenar (palavra):
         c = 0
         tam = len(palavra)
         
+        # palavra.sort()
+        
         while c < tam-1:
             
             if palavra[c] > palavra[c+1] and c >= 0:
