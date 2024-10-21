@@ -1,5 +1,4 @@
 
-
 //Percebi que usaria bastante essas funções, então fiz logo uma biblioteca para evitar digitar toda hora, tem um arquivo dizendo como executar caso não saiba
 #include "Bibliotecas\LISTA_ENCADEADA_BIB.h"
 
