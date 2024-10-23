@@ -108,13 +108,13 @@ void criar_lista_aleatoria(Lista **lista, int tam)
 
 
 
-void liberar_memoria(Lista **lista)
+void liberar_memoria(Lista *lista)
 {
-    Lista **anterior = lista;
+    Lista *anterior = lista;
 
-    while (*lista != NULL)
+    while (lista != NULL)
     {
-        lista = &(*lista)->proximo;
+        lista = lista->proximo;
         free(anterior);
         anterior = lista;
     }
@@ -122,13 +122,13 @@ void liberar_memoria(Lista **lista)
     free(anterior);
 }
 
-void liberar_memoria_nomes(Lista_de_strings **lista)
+void liberar_memoria_nomes(Lista_de_strings *lista)
 {
-    Lista_de_strings **anterior = lista;
+    Lista_de_strings *anterior = lista;
 
-    while (*lista != NULL)
+    while (lista != NULL)
     {
-        lista = &(*lista)->proximo;
+        lista = lista->proximo;
         free(anterior);
         anterior = lista;
     }
@@ -136,13 +136,13 @@ void liberar_memoria_nomes(Lista_de_strings **lista)
     free(anterior);
 }
 
-void liberar_memoria_vetor(Lista_vetores **lista)
+void liberar_memoria_vetor(Lista_vetores *lista)
 {
-    Lista_vetores **anterior = lista;
+    Lista_vetores *anterior = lista;
 
-    while (*lista != NULL)
+    while (lista != NULL)
     {
-        lista = &(*lista)->proximo;
+        lista = lista->proximo;
         free(anterior);
         anterior = lista;
     }

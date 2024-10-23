@@ -100,7 +100,7 @@ int main()
     printar_lista(list);
     printf("\n");
 
-    liberar_memoria(&list);
+    liberar_memoria(list);
 
     return 0;
 }

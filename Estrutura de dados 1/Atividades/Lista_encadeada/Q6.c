@@ -63,9 +63,9 @@ int main()
     printar_lista(list_resultado);
     printf("\n");
 
-    liberar_memoria(&list1);
-    liberar_memoria(&list2);
-    liberar_memoria(&list_resultado);
+    liberar_memoria(list1);
+    liberar_memoria(list2);
+    liberar_memoria(list_resultado);
 
     return 0;
 }

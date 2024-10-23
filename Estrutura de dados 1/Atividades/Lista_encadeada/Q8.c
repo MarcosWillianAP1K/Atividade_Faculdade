@@ -92,7 +92,7 @@ int main()
     printar_lista_nomes(list);
     printf("\n");
 
-    liberar_memoria_nomes(&list);
+    liberar_memoria_nomes(list);
 
     return 0;
 }

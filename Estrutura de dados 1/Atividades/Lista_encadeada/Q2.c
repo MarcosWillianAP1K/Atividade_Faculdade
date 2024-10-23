@@ -42,7 +42,7 @@ int main()
         printf("Valor encontrado %d\n", resultado->numero);
     }
 
-    liberar_memoria(&list_encadeda);
+    liberar_memoria(list_encadeda);
 
     return 0;
 }

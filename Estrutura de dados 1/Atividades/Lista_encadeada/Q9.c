@@ -87,7 +87,7 @@ int main()
     printar_lista_vetor(list);
     printf("\n");
 
-    liberar_memoria_vetor(&list);
+    liberar_memoria_vetor(list);
 
     return 0;
 }
