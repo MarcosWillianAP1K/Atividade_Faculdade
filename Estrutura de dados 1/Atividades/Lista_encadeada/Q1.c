@@ -29,7 +29,7 @@ int main()
 
     printf("\nTem %d Nos", contar(list_encadeda));
 
-    liberar_memoria(&list_encadeda);
+    liberar_memoria(list_encadeda);
 
     return 0;
 }

@@ -63,7 +63,7 @@ int main()
     printar_lista(list_encadeda);
     printf("\n");
 
-    liberar_memoria(&list_encadeda);
+    liberar_memoria(list_encadeda);
 
     return 0;
 }

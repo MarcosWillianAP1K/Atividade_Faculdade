@@ -36,8 +36,7 @@ int main()
     printar_lista(list1);
     printf("\n");
 
-    liberar_memoria(&list1);
-    liberar_memoria(&list2);
+    liberar_memoria(list1);
 
     return 0;
 }
