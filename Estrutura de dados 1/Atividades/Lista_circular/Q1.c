@@ -1,32 +1,32 @@
 #include "BIBLIOTECA/LISTA_CIRCULAR.h"
 
 
-void buscar(LISTA_CIRCULAR **inicio, int n)
+void pecorrer(LISTA_CIRCULAR **inicio, int n)
 {
-    if (*inicio == NULL)
+    if (*inicio == NULL || n < 0)
     {
         return;
     }
+
 
     LISTA_CIRCULAR *atual = *inicio;
     //posso iniciar anterior como NULL ou atual 
     LISTA_CIRCULAR *anterior = atual;
 
-    do
-    {
-        if (atual->numero == n)
-        {
-            remover_elemento(anterior, &atual, inicio);
-        }
-        
-        //atualizar anterior somente quando o atual estiver pelo menos a frente do inicio
-        if (anterior != atual || anterior == NULL)
-        {
-            anterior = atual;
-        }
-        atual = atual->proximo;
 
-    } while (atual != *inicio && atual != NULL);
+    while (atual->proximo != atual)
+    {
+        for (int i = 0; i < n+1; i++)
+        {
+            if (atual != anterior)
+            {
+                anterior = atual;
+            }
+
+            atual = atual->proximo;
+        }
+        remover_elemento(anterior, &atual, inicio);
+    }
     
 }
 
@@ -35,15 +35,16 @@ int main()
 {
     LISTA_CIRCULAR *lista = iniciar();
 
-    adicionar_elemento(&lista, 1);
-    adicionar_elemento(&lista, 2);
-    adicionar_elemento(&lista, 3);
+    criar_lista_sequencial(&lista, 5);
 
-    printar_lista(lista);
+    //o true/false serve para printar posição ou não
+    printar_lista(lista, true);
 
-    buscar(&lista, 3);
 
-    printar_lista(lista);
+    //a posição funciona igual vetor começa do 0
+    pecorrer(&lista, 1);
+
+    printar_lista(lista, true);
 
     liberar(&lista);
 

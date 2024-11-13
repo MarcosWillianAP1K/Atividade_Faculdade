@@ -5,28 +5,35 @@ LISTA_CIRCULAR *iniciar()
     return NULL;
 }
 
+
 void adicionar_elemento(LISTA_CIRCULAR **lista, int n)
 {
     if (*lista == NULL)
     {
         *lista = malloc(sizeof(LISTA_CIRCULAR));
+        (*lista)->posicao = 0;
         (*lista)->numero = n;
         (*lista)->proximo = *lista;
 
         return;
     }
 
+    int c = 1;
+
     LISTA_CIRCULAR *inicio = *lista;
 
     while ((*lista)->proximo != inicio)
     {
+        c++;
         lista = &(*lista)->proximo;
     }
 
     (*lista)->proximo = malloc(sizeof(LISTA_CIRCULAR));
+    (*lista)->proximo->posicao = c;
     (*lista)->proximo->numero = n;
     (*lista)->proximo->proximo = inicio;
 }
+
 
 void remover_elemento(LISTA_CIRCULAR *anterior, LISTA_CIRCULAR **atual, LISTA_CIRCULAR **inicio)
 {
@@ -86,7 +93,8 @@ void remover_elemento(LISTA_CIRCULAR *anterior, LISTA_CIRCULAR **atual, LISTA_CI
     *atual = anterior;
 }
 
-void printar_lista(LISTA_CIRCULAR *lista)
+
+void printar_lista(LISTA_CIRCULAR *lista, bool opcao)
 {
     if (lista == NULL)
     {
@@ -96,17 +104,31 @@ void printar_lista(LISTA_CIRCULAR *lista)
 
     LISTA_CIRCULAR *inicio = lista;
 
+    if (opcao)
+    {
+        printf("%d: ", inicio->posicao);
+    }
+
     printf("%d", inicio->numero);
 
     lista = lista->proximo;
 
     while (lista != inicio)
     {
-        printf(" -> %d", lista->numero);
+        printf(" -> ");
+
+        if (opcao)
+        {
+            printf("%d: ", lista->posicao);
+        }
+
+        printf("%d", lista->numero);
+
         lista = lista->proximo;
     }
     printf(" -> INICIO\n\n");
 }
+
 
 void liberar(LISTA_CIRCULAR **lista)
 {
@@ -126,4 +148,13 @@ void liberar(LISTA_CIRCULAR **lista)
     } while (aux != *lista);
 
     *lista = NULL;
+}
+
+
+void criar_lista_sequencial(LISTA_CIRCULAR **lista, int tam)
+{
+    for (int i = 0; i < tam; i++)
+    {
+        adicionar_elemento(lista, i + 1);
+    }
 }
