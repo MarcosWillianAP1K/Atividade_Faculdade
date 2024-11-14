@@ -8,7 +8,7 @@ void pecorrer(LISTA_CIRCULAR **inicio, int n)
         return;
     }
 
-
+    
     LISTA_CIRCULAR *atual = *inicio;
     //posso iniciar anterior como NULL ou atual 
     LISTA_CIRCULAR *anterior = atual;
@@ -27,7 +27,6 @@ void pecorrer(LISTA_CIRCULAR **inicio, int n)
         }
         remover_elemento(anterior, &atual, inicio);
     }
-    
 }
 
 
