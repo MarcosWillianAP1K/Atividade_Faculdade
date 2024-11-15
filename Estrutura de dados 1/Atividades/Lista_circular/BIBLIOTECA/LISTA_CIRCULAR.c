@@ -158,3 +158,28 @@ void criar_lista_sequencial(LISTA_CIRCULAR **lista, int tam)
         adicionar_elemento(lista, i + 1);
     }
 }
+
+
+int digitar_tamanho()
+{
+    printf("Digite o tamanho da lista\n");
+    int n;
+    scanf("%d", &n);
+
+    printf("\n");
+    return n;
+}
+
+
+void criar_lista_digitando(LISTA_CIRCULAR **lista, int tam)
+{
+    int n;
+    printf("Digite uma lista de tamanho %d\n", tam);
+    for (int i = 0; i < tam; i++)
+    {
+        scanf("%d", &n);
+        adicionar_elemento(lista, n);
+    }
+    
+    printf("\n\n");
+}

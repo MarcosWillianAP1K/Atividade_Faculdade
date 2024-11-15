@@ -27,3 +27,9 @@ void liberar(LISTA_CIRCULAR **lista);
 
 
 void criar_lista_sequencial(LISTA_CIRCULAR **lista, int tam);
+
+
+int digitar_tamanho();
+
+
+void criar_lista_digitando(LISTA_CIRCULAR **lista, int tam);
