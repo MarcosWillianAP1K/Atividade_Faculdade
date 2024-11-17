@@ -7,7 +7,7 @@ Table PROFISSIONAL{
 
 Table MEDICO {
     Num_CRM int [pk, increment]
-    teste int
+    
 }
 
 Table ENFERMEIRO {
@@ -43,23 +43,23 @@ Table PROCEDIMENTO {
 
 
 Table CIRUGIA {
-    Id_medico_responsavel int [ref: > MEDICO.Num_CRM] // FK
+    Num_medico_responsavel int [ref: > MEDICO.Num_CRM] // FK
     Id_cirugia int [pk, increment] // PK
-    Id_procedimento int [ref: - PROCEDIMENTO.Id_procedimento] // FK
+    Num_procedimento int [ref: - PROCEDIMENTO.Id_procedimento] // FK
 
 }
 
 
 Table CONSULTA {
-    Id_medico_responsavel int [ref: > MEDICO.Num_CRM] // FK
-    Id_procedimento int [ref: - PROCEDIMENTO.Id_procedimento] // FK
+    Num_medico_responsavel int [ref: > MEDICO.Num_CRM] // FK
+    Num_procedimento int [ref: - PROCEDIMENTO.Id_procedimento] // FK
 
 }
 
 
 
 Table EXAME {
-    Id_procedimento int [ref: - PROCEDIMENTO.Id_procedimento] // FK
+    Num_procedimento int [ref: - PROCEDIMENTO.Id_procedimento] // FK
 
 }
 
@@ -91,19 +91,24 @@ Table FONE {
 Table PLANO_DE_SAUDE {
     id_plano int [pk, increment] // PK
     nome varchar
-    CNPJ int
-    CPF_paciente int [ref: > PACIENTE.CPF] // FK
+
 }   
+
+Table  PLANO_PACIENTE {
+    CPF_paciente int [ref: > PACIENTE.CPF] // FK
+    Num_plano int [ref: > PLANO_DE_SAUDE.id_plano] // FK
+}
 
 
 
 Table HISTORICO{
     Id_historico int [pk, increment] // PK
     CPF_paciente int [ref: > PACIENTE.CPF] // FK
-    data_contracao date
+    
 }
 
 Table DOENCA{
     nome varchar
+    data_contracao date
     Id_historico int [ref: > HISTORICO.Id_historico] // FK
 }
