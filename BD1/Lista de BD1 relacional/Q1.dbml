@@ -1,0 +1,109 @@
+Table PROFISSIONAL{
+    id_profissional int [pk, increment] // PK
+    nome varchar
+    area int [ ref: - MEDICO.Num_CRM, ref: - ENFERMEIRO.Num_COREN] // FK
+}
+
+
+Table MEDICO {
+    Num_CRM int [pk, increment]
+    teste int
+}
+
+Table ENFERMEIRO {
+    Num_COREN int [pk, increment]
+    
+}
+
+
+Table PLANTAO {
+    Id_enfermeiro int [ref: > ENFERMEIRO.Num_COREN] // FK
+    dia date
+    horario time
+}
+
+
+
+
+Table ASSISTE{
+    id_assite int [ref: > ENFERMEIRO.Num_COREN, ref: > MEDICO.Num_CRM] // FK
+    Id_procedimento int [ref: > CIRUGIA.Id_cirugia] // FK
+
+}
+
+
+
+Table PROCEDIMENTO {
+    Id_procedimento int [pk, increment] // PK
+    Hora time
+    Data date
+    CPF_paciente int [ref: > PACIENTE.CPF] // FK
+
+}
+
+
+Table CIRUGIA {
+    Id_medico_responsavel int [ref: > MEDICO.Num_CRM] // FK
+    Id_cirugia int [pk, increment] // PK
+    Id_procedimento int [ref: - PROCEDIMENTO.Id_procedimento] // FK
+
+}
+
+
+Table CONSULTA {
+    Id_medico_responsavel int [ref: > MEDICO.Num_CRM] // FK
+    Id_procedimento int [ref: - PROCEDIMENTO.Id_procedimento] // FK
+
+}
+
+
+
+Table EXAME {
+    Id_procedimento int [ref: - PROCEDIMENTO.Id_procedimento] // FK
+
+}
+
+
+
+
+//paciente
+Table PACIENTE {
+    Nome varchar
+    CPF int [pk, increment] // PK
+}
+
+Table ENDERECO {
+    rua varchar
+    numero int
+    bairro varchar
+    cidade varchar
+    estado varchar
+    cep int
+    CPF int [ref: > PACIENTE.CPF] // FK
+    
+}
+
+Table FONE {
+    Id_dono int [ref: > PACIENTE.CPF, ref: > PROFISSIONAL.id_profissional] // FK
+    numero int
+}
+
+Table PLANO_DE_SAUDE {
+    id_plano int [pk, increment] // PK
+    nome varchar
+    CNPJ int
+    CPF_paciente int [ref: > PACIENTE.CPF] // FK
+}   
+
+
+
+Table HISTORICO{
+    Id_historico int [pk, increment] // PK
+    CPF_paciente int [ref: > PACIENTE.CPF] // FK
+    data_contracao date
+}
+
+Table DOENCA{
+    nome varchar
+    Id_historico int [ref: > HISTORICO.Id_historico] // FK
+}
