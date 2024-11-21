@@ -14,7 +14,16 @@ typedef struct LISTA_CIRCULAR
 LISTA_CIRCULAR *iniciar();
 
 
-void adicionar_elemento(LISTA_CIRCULAR **lista, int n);
+void pecorrer_lista_dando_posicao(LISTA_CIRCULAR *inicio);
+
+
+void adicionar_elemento_final(LISTA_CIRCULAR **lista, int n);
+
+
+void adicionar_elemento_a_frente(LISTA_CIRCULAR **lista, int n);
+
+
+void adicionar_elemento_inicio(LISTA_CIRCULAR **lista, int n);
 
 
 void remover_elemento(LISTA_CIRCULAR *anterior, LISTA_CIRCULAR **atual, LISTA_CIRCULAR **inicio);

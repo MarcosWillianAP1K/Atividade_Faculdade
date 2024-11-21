@@ -18,7 +18,7 @@ void criar_lista_primos(LISTA_CIRCULAR **lista, int n)
     if (n > 0)
     {
         // adiciona o primeiro
-        adicionar_elemento(lista, 2);
+        adicionar_elemento_final(lista, 2);
 
         int cont = 1;
         // inicia com os segundo
@@ -28,7 +28,7 @@ void criar_lista_primos(LISTA_CIRCULAR **lista, int n)
         {
             if (verificar_primo(primo))
             {
-                adicionar_elemento(lista, primo);
+                adicionar_elemento_final(lista, primo);
                 cont++;
             }
 

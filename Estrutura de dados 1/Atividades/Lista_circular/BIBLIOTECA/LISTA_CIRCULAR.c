@@ -6,7 +6,42 @@ LISTA_CIRCULAR *iniciar()
 }
 
 
-void adicionar_elemento(LISTA_CIRCULAR **lista, int n)
+void pecorrer_lista_dando_posicao(LISTA_CIRCULAR *inicio)
+{
+    if (inicio == NULL)
+    {
+        return;
+    }
+    LISTA_CIRCULAR *atual = inicio;
+
+    int c = 0;
+
+    do
+    {
+        atual->posicao = c;
+        c++;
+        atual = atual->proximo;
+    } while (atual != inicio);
+    
+}
+
+
+void acresentar_1_no_atual_e_proximos_nos(LISTA_CIRCULAR *atual, int posicao_de_parada)
+{
+    atual->posicao += 1;
+    atual = atual->proximo;
+
+    //pecorre os nos seguintes somando +1 na posição
+    while (atual->posicao > posicao_de_parada)
+    {
+        atual->posicao += 1;
+        atual = atual->proximo;
+    }
+}
+
+
+//so funciona passando o ponteiro inicio
+void adicionar_elemento_final(LISTA_CIRCULAR **lista, int n)
 {
     if (*lista == NULL)
     {
@@ -18,8 +53,10 @@ void adicionar_elemento(LISTA_CIRCULAR **lista, int n)
         return;
     }
 
-    int c = 1;
+    int c = (*lista)->posicao + 1;
 
+    //preciso trocar isso, melhor deixar o ** como inicio doque usar ele pra pecorrer, ja que posso modificar o inicio qunado quiser,
+    //apesar que essa função n faz tanta diferença, é mais questão de boas maneiras
     LISTA_CIRCULAR *inicio = *lista;
 
     while ((*lista)->proximo != inicio)
@@ -32,6 +69,62 @@ void adicionar_elemento(LISTA_CIRCULAR **lista, int n)
     (*lista)->proximo->posicao = c;
     (*lista)->proximo->numero = n;
     (*lista)->proximo->proximo = inicio;
+}
+
+
+//Ideal passar o inicio, mas deve funcionar para adicionar anterior do no atual, mas fiz com que n funcionasse, alem de mais custoso, ja que da a volta na lista
+void adicionar_elemento_inicio(LISTA_CIRCULAR **inicio, int n)
+{
+    if (*inicio == NULL)
+    {
+        *inicio = malloc(sizeof(LISTA_CIRCULAR));
+        (*inicio)->posicao = 0;
+        (*inicio)->numero = n;
+        (*inicio)->proximo = *inicio;
+
+        return;
+    }
+
+    LISTA_CIRCULAR *fim = *inicio;
+
+    while (fim->proximo != *inicio)
+    {
+        fim = fim->proximo;
+    }
+
+    //aloco pro proximo, mesmo que criar um novo no
+    fim->proximo = malloc(sizeof(LISTA_CIRCULAR));
+    fim->proximo->numero = n;
+    fim->proximo->posicao = 0;
+    fim->proximo->proximo = *inicio;
+    *inicio = fim->proximo;
+
+    acresentar_1_no_atual_e_proximos_nos((*inicio)->proximo, 0);
+}
+
+
+//So adiciona a frente do No atual(no caso lista)
+void adicionar_elemento_a_frente(LISTA_CIRCULAR **lista, int n)
+{
+    if (*lista == NULL)
+    {
+        *lista = malloc(sizeof(LISTA_CIRCULAR));
+        (*lista)->posicao = 0;
+        (*lista)->numero = n;
+        (*lista)->proximo = *lista;
+
+        return;
+    }
+    
+    LISTA_CIRCULAR *novo_no = malloc(sizeof(LISTA_CIRCULAR));
+    novo_no->numero = n;
+    novo_no->proximo = (*lista)->proximo;
+    novo_no->posicao = (*lista)->posicao;
+
+    (*lista)->proximo = novo_no;
+
+    acresentar_1_no_atual_e_proximos_nos(novo_no, (*lista)->posicao);
+       
 }
 
 
@@ -155,14 +248,14 @@ void criar_lista_sequencial(LISTA_CIRCULAR **lista, int tam)
 {
     for (int i = 0; i < tam; i++)
     {
-        adicionar_elemento(lista, i + 1);
+        adicionar_elemento_final(lista, i + 1);
     }
 }
 
 
 int digitar_tamanho()
 {
-    printf("Digite o tamanho da lista\n");
+    printf("Digite o tamanho da lista: ");
     int n;
     scanf("%d", &n);
 
@@ -178,7 +271,7 @@ void criar_lista_digitando(LISTA_CIRCULAR **lista, int tam)
     for (int i = 0; i < tam; i++)
     {
         scanf("%d", &n);
-        adicionar_elemento(lista, n);
+        adicionar_elemento_final(lista, n);
     }
     
     printf("\n\n");
