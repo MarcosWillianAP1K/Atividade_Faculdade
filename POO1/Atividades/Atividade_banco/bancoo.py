@@ -3,6 +3,9 @@ import time
 import os
 
 
+# Os parametros com "= none", é para eu poder poder testar, ja mandando valores direto inves de ficar escrevendo.
+
+
 class Conta:
     
     
@@ -13,7 +16,6 @@ class Conta:
         self._historico = []
 
 
-    
     @property
     def Historico(self):
         return self._historico
@@ -22,54 +24,32 @@ class Conta:
     def Historico(self, registro):
         self._historico.append(registro)
     
-        
+    
     @property
     def Saldo(self):
         return self._carteira
     
 
     @property
-    def Depositar(self):
+    def Depositar():
         pass
     
     
     @Depositar.setter
-    def Depositar(self, quanto):
+    def Depositar(self, quanto: float):
+        self._carteira += float(quanto)
+                
         
-        try:
-            quanto = float(quanto)
-            self._carteira += quanto 
-            return True
-        
-        except ValueError:
-            print("Valor inválido\n")
-            return False
-        
-    
     @property
-    def Sacar(self):
+    def Sacar():
         pass
         
         
     @Sacar.setter
-    def Sacar(self, quanto):
-        try:
-            quanto = float(quanto)
-            
-            if quanto > self._carteira:
-                print("saldo insuficiente\n")
-                return False
-            else:
-                self._carteira -= quanto
-                return True
+    def Sacar(self, quanto: float):
+        self._carteira -= float(quanto)
+                   
         
-        except ValueError:
-            print("Valor inválido\n")
-            return False
-            
-        
-       
-    
     @property
     def Titular(self):
         return self._titular
@@ -92,6 +72,7 @@ class Banco:
     def contas(self):
         return self._contas_armazenadas
     
+    
     def criar_num_conta(self):
         while True:
             num = ""
@@ -103,15 +84,17 @@ class Banco:
             if num not in self._contas_armazenadas:
                 return num
 
+
     @property
     def criar_conta(self):
         num_conta = self.criar_num_conta()
         self._contas_armazenadas[num_conta] = Conta(0, "teste")
         return num_conta
     
+    
     @criar_conta.setter
     def criar_conta(self, nome=None):
-        if nome is None:
+        if nome == None:
             nome = input("Digite o nome do titular: ")
         
         num_conta = self.criar_num_conta()
@@ -130,7 +113,7 @@ class Banco:
             return None
 
 
-    def add_historico(self, conta: Conta, data, operação, valor):
+    def add_historico(self, conta, data, operação, valor):
         self._contas_armazenadas[conta].Historico = (f"{data}\nTipo:{operação}\nValor: {valor}\n")
 
 
@@ -146,79 +129,91 @@ class Banco:
             
         print()
 
+    
+    def validar_valor(self, num_conta, tipo, valor):
+        try:
+            valor = float(valor)
+                    
+            if valor > self._contas_armazenadas[num_conta].Saldo and tipo == "S":
+                    print("Saldo insuficiente\n")
+            elif valor <= 0:
+                        print("Valor inválido\n")
+            else:
+                return True
+                    
+        except ValueError:
+            print("Valor inválido\n")
+        return False
+    
 
     def sacar(self, num_conta=None, valor=None):
         
         if num_conta is None:
             num_conta = self.selecionar_conta()
-        if valor is None:
+        
+        if valor is None and num_conta != None:
             valor = input("Digite o valor a ser sacado: ")
         
-        situacao = self._contas_armazenadas[num_conta].Sacar = valor
-        
-        if situacao:
-            print("Saque realizado com sucesso\n")
-            self.add_historico(num_conta, time.ctime(), "Saque", valor)
-    
+        if num_conta != None and valor != None:
+            
+            if self.validar_valor(num_conta, "S", valor):
+                
+                self._contas_armazenadas[num_conta].Sacar = valor
+                print("Saque realizado com sucesso\n")
+                self.add_historico(num_conta, time.ctime(), "Saque", valor)
+                            
 
     def depositar(self, num_conta=None, valor=None):
         
-        if num_conta is None:
+        if num_conta == None:
             num_conta = self.selecionar_conta()
             
-        if valor is None:
+        if valor == None and num_conta != None:
             valor = input("Digite o valor a ser depositado: ")
         
-        situacao = self._contas_armazenadas[num_conta].Depositar = valor
-        
-        if situacao:
-            print("Deposito realizado com sucesso\n")
-            self.add_historico(num_conta, time.ctime(), "Deposito", valor)
-
+        if num_conta != None and valor != None:
+            
+            if self.validar_valor(num_conta, "D", valor):
+                self._contas_armazenadas[num_conta].Depositar = valor
+                print("Deposito realizado com sucesso\n")
+                self.add_historico(num_conta, time.ctime(), "Deposito", valor)
+                
     
     def tranferir(self,  conta_origem=None, conta_destino=None, valor=None):
          
-        if conta_origem is None:
+        if conta_origem == None:
             print("Selecione a conta de origem e a conta de destino respectivamente")
             conta_origem = self.selecionar_conta()
         
-        if conta_origem == None:
-            return
         
-        if conta_destino is None:
+        if conta_destino == None and conta_origem != None:
             conta_destino = self.selecionar_conta()
         
-        if conta_destino == None:
-            return
         
-        try:
-            if valor is None:
-                valor = input("Digite o valor a ser transferido: ")
+        if valor == None and conta_origem != None and  conta_destino != None:
+            valor = input("Digite o valor a ser transferido: ")
             
-            valor = float(valor)
-            
-            operação = self._contas_armazenadas[conta_origem].Sacar = valor
-            
-            if operação != False:
+        
+        if  conta_origem != None and  conta_destino != None and valor != None: 
+                
+            if self.validar_valor(conta_origem, "S", valor):
+                self._contas_armazenadas[conta_origem].Sacar = valor
                 self._contas_armazenadas[conta_destino].Depositar = valor
             
-            
-            print("Transferência realizada com sucesso\n")
-            
-            self.add_historico(conta_origem, time.ctime(), "Transferência enviada", valor)
-            self.add_historico(conta_destino, time.ctime(), "Transferência recebida", valor)
-        except ValueError:
-            print("Valor inválido\n")
-
+                print("Transferência realizada com sucesso\n")
+                    
+                self.add_historico(conta_origem, time.ctime(), "Transferência enviada", valor)
+                self.add_historico(conta_destino, time.ctime(), "Transferência recebida", valor)
+                
 
     def printar_saldo(self, num_conta=None):
-        if num_conta is None:
+        if num_conta == None:
             num_conta = self.selecionar_conta()
         print("Saldo: ", self._contas_armazenadas[num_conta].Saldo)
 
 
     def printar_historico(self, num_conta=None):
-        if num_conta is None:
+        if num_conta == None:
             num_conta = self.selecionar_conta()
         
         if num_conta == None:
