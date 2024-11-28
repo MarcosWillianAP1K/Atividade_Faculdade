@@ -60,16 +60,16 @@ class pessoa:
         if nova_data == None:
             nova_data = input("Digite a data de nascimento (DD/MM/AAAA): ")
         try:
-            data = datetime.datetime.strptime(nova_data, "%d/%m/%Y")
+            data_da_pessoa = datetime.datetime.strptime(nova_data, "%d/%m/%Y")
             data_atual = datetime.datetime.now()
             
-            if not data > data_atual:
+            if not data_da_pessoa > data_atual:
                 self._data_nascimento = nova_data
         except ValueError:
             print("\nData inválida\n")
             
             
-    
+    @property
     def calcular_idade(self):
         if self._data_nascimento == "00/00/0000" or self._data_nascimento == "":
             return 0
@@ -87,7 +87,7 @@ class pessoa:
     
             
     def imprimir_pessoa(self):
-        print(f"Nome: {self._nome}\nData nascimento: {self._data_nascimento}\nAltura: {self._altura}\nIdade: {self.calcular_idade()}\n")
+        print(f"Nome: {self._nome}\nData nascimento: {self._data_nascimento}\nAltura: {self._altura}\nIdade: {self.calcular_idade}\n")
         
 
 
