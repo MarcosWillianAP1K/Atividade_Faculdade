@@ -35,7 +35,7 @@ class PESSOA:
     @altura.setter
     def altura(self, nova_altura = None):
         if nova_altura == None:
-            nova_altura = input("Digite um nome: ")
+            nova_altura = input("Digite altura: ")
             
         try:
             nova_altura = float(nova_altura)
@@ -46,7 +46,7 @@ class PESSOA:
                 print("\nAltura invalida\n")
         
         except:
-            print("\nAltura invalida\n")
+            print("\nAltura invalida")
             
     
     
@@ -92,9 +92,96 @@ class PESSOA:
 
 class AGENDA:
     
-    def __init__(self):
+    def __init__(self, quant_maxima:int):
         self._pessoas = []
+        self._quant = quant_maxima
+    
+    
+    def validar_nome(self, nome:str):
+        for pessoa in self._pessoas:
+            if pessoa.nome == nome:
+                print("Nome ja existe")
+                return False
+        return True
+    
+    
+    def imprimir_agenda(self):
+        
+        if self._pessoas != []:
+            for i in self._pessoas:
+                i.imprimir_pessoa()
+        else:
+            print("Agenda vazia\n")
+    
+    
+    def buscar(self, nome:str):
+        if self._pessoas != []:
+            for i in self._pessoas:
+                
+                if i.nome == nome:
+                    i.imprimir_pessoa()
+                    return 
+        else:
+            print("Agenda vazia\n")
+    
+    @property
+    def armazernar(self):
+        return self._pessoas
+    
+    @armazernar.setter
+    def armazernar(self, quant:int):
+        
+        if((len(self._pessoas) + quant) <= self._quant):
+            
+            while(quant > 0):
+                
+                try:
+                    pessoa = PESSOA()
+                    
+                    pessoa.nome = None
+                    
+                    if(self.validar_nome(pessoa.nome) and pessoa.nome != ""):
+                        pessoa.data_nascimento = None
+                        
+                        if pessoa.data_nascimento != "00/00/0000":
+                            pessoa.altura = None
+
+                            if pessoa.altura != 0:
+                                self._pessoas.append(pessoa)
+                                quant -= 1
+                except:
+                    continue
+                print("\n")
+        else:
+            print("Armazenamento cheio")
+    
+    
+    @property
+    def remover(self):
+        pass
+    
+    @remover.setter
+    def remover(self, nome:str):
+        for pessoa in self._pessoas:
+            if pessoa.nome == nome:
+                self._pessoas.remove(pessoa)
+                print(f"{nome} removido da agenda.\n")
+                return
+        print(f"{nome} não encontrado na agenda.\n")
+    
+    
+            
         
     
     
+    
+    
+agenda = AGENDA(10)
+
+agenda.armazernar = 1
+agenda.remover = "marcos"
+agenda.imprimir_agenda()
+print()
+agenda.buscar("teste")
+
 

@@ -35,7 +35,7 @@ class pessoa:
     @altura.setter
     def altura(self, nova_altura = None):
         if nova_altura == None:
-            nova_altura = input("Digite um nome: ")
+            nova_altura = input("Digite altura: ")
             
         try:
             nova_altura = float(nova_altura)
