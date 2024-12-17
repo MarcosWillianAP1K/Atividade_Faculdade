@@ -250,7 +250,7 @@
                 <mxCell id="158" value="adicionarHistorico(solicitcao: Solicitação): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="155" vertex="1">
                     <mxGeometry y="60" width="280" height="26" as="geometry"/>
                 </mxCell>
-                <mxCell id="222" value="atualizarHistorico(solicitcao : Solicitação): Boolean" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="155">
+                <mxCell id="222" value="atualizarHistorico(solicitcao : Solicitação): Boolean" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="155" vertex="1">
                     <mxGeometry y="86" width="280" height="26" as="geometry"/>
                 </mxCell>
                 <mxCell id="162" value="" style="endArrow=diamondThin;endFill=1;endSize=24;html=1;" parent="1" source="155" target="58" edge="1">
